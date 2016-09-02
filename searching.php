@@ -14,7 +14,7 @@ for($i=0;$i<$racks_length;$i++)
 	$characters[] = $racks{$i};
 }
 
-echo '<ul>';
+echo '<table><head><th>Addition Characters</th><th>Words</th></head><tbody>';
 while (!feof($fp))
 {
 	$all_match = true;
@@ -34,8 +34,11 @@ while (!feof($fp))
 		}
 	}
 	if($all_match)
-		echo '<li>'.$original_word.'</li>';
+	{
+		echo '<tr><td>'.$word.'</td><td>'.$original_word.'</td>';
+	}
+
 
 }
-echo '</ul>';
+echo '</tbody></table>';
 fclose($fp);
