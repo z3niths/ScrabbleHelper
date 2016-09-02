@@ -44,7 +44,7 @@ while (!feof($fp))
 	{
 	    if(strlen($original_word) <= intval($limit)+1)
         {
-            if($word === '')
+            if(trim($word) == '')
                 $word ='-';
             $lists[] = array($word,$original_word,strlen($original_word)-1);
         }
