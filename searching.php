@@ -7,13 +7,19 @@ $fp = fopen($target_filename, "r") or die("Unable to open file!");
 
 // LOAD RACKS
 $racks =trim($_REQUEST['racks']);
+$limit =trim($_REQUEST['limit']);
 $racks_length = strlen($_REQUEST['racks']);
 $characters =array();
 for($i=0;$i<$racks_length;$i++)
 {
 	$characters[] = $racks{$i};
 }
-echo '<form method="POST">Racks : <input type="text" value="'.$racks.'" name="racks"/><input type="submit"/></form>';
+echo '
+        <form method="POST">
+        Racks : <input type="text" value="'.$racks.'" name="racks"/>
+        Limit : <input type="text" value="'.(($limit > 0)? $limit : 9).'" name="limit"/>
+        <input type="submit"/></form>
+    ';
 echo '<table><head><th>Addition Characters</th><th>Words</th></head><tbody>';
 while (!feof($fp))
 {
@@ -35,7 +41,8 @@ while (!feof($fp))
 	}
 	if($all_match)
 	{
-		echo '<tr><td>'.$word.'</td><td>'.$original_word.'</td>';
+	    if(strlen($original_word) <= $limit)
+		    echo '<tr><td>'.$word.'</td><td>'.$original_word.'</td>';
 	}
 
 
