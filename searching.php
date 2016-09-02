@@ -13,7 +13,7 @@ for($i=0;$i<$racks_length;$i++)
 {
 	$characters[] = $racks{$i};
 }
-
+echo '<form method="POST">Racks : <input type="text" value="'.$racks.'" name="racks"/><input type="submit"/></form>';
 echo '<table><head><th>Addition Characters</th><th>Words</th></head><tbody>';
 while (!feof($fp))
 {
