@@ -20,7 +20,8 @@ echo '
         Limit : <input type="text" value="'.(($limit > 0)? $limit : 9).'" name="limit"/>
         <input type="submit"/></form>
     ';
-echo '<table><head><th>Addition Characters</th><th>Words</th></head><tbody>';
+echo '<table><head><th width="180">Addition Characters</th><th width="180">Words</th><th width="180">Word length</th></head><tbody>';
+$lists = array();
 while (!feof($fp))
 {
 	$all_match = true;
@@ -42,10 +43,29 @@ while (!feof($fp))
 	if($all_match)
 	{
 	    if(strlen($original_word) <= $limit)
-		    echo '<tr><td>'.$word.'</td><td>'.$original_word.'</td>';
+        {
+            if($word === '')
+                $word ='-';
+            $lists[] = array($word,$original_word,strlen($original_word));
+        }
+
 	}
 
 
 }
+
+usort($lists, function ($a, $b)
+{
+    if ($a[2] == $b[2]) {
+        return 0;
+    }
+    return ($a[2] < $b[2]) ? -1 : 1;
+});
+
+foreach($lists as $row)
+{
+    echo '<tr><td>'.$row[0].'</td><td>'.$row[1].'</td><td>'.$row[2].'</td></tr>';
+}
+
 echo '</tbody></table>';
 fclose($fp);
